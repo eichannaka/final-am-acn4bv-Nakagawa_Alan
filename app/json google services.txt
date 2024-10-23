@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "450980509828",
+    "project_id": "miaplicacionam",
+    "storage_bucket": "miaplicacionam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450980509828:android:9ef76587776e097d962ad1",
+        "android_client_info": {
+          "package_name": "com.example.miaplicacionam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMocOelVKinbea598FV3sydZOzw2Ah8Ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

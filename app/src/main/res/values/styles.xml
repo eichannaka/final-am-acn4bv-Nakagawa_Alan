@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditTextTheme">
+        <item name="colorControlNormal">@color/complementary</item>
+        <item name="colorControlActivated">@color/complementary</item>
+        <item name="colorControlHighlight">@color/complementary</item>
+    </style>
+</resources>
