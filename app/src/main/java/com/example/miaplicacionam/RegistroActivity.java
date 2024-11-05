@@ -163,15 +163,15 @@ public class RegistroActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            Map<String, Object> alumno = new HashMap<>();
-                            alumno.put("nombre", name);
-                            alumno.put("apellido", lastName);
-                            alumno.put("fec_nacimiento", new Timestamp(birthDate));
-                            alumno.put("email", email);
+                            Map<String, Object> usuario = new HashMap<>();
+                            usuario.put("nombre", name);
+                            usuario.put("apellido", lastName);
+                            usuario.put("fec_nacimiento", new Timestamp(birthDate));
+                            usuario.put("email", email);
 
                             // Guardar información adicional en Firestore
-                            db.collection("alumno").document(user.getUid()) // Usar el UID del usuario
-                                    .set(alumno)
+                            db.collection("usuario").document(user.getUid()) // Usar el UID del usuario
+                                    .set(usuario)
                                     .addOnSuccessListener(documentReference -> handleSuccess())
                                     .addOnFailureListener(e -> handleFailure());
                         }

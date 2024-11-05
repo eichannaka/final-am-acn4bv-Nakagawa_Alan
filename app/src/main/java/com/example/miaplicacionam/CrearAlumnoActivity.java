@@ -88,7 +88,7 @@ public class CrearAlumnoActivity extends AppCompatActivity {
         alumno.put("fec_nacimiento", new Timestamp(fechaNacimiento));
         alumno.put("imagen_url", imagenURL); // URL de imagen vacía por ahora
 
-        db.collection("alumno")
+        db.collection("alumnos")
                 .add(alumno)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(CrearAlumnoActivity.this, "Alumno agregado con éxito", Toast.LENGTH_SHORT).show();
