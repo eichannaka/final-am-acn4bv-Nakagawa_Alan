@@ -17,7 +17,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.Firebase;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
@@ -151,18 +154,32 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     private void crearUsuario(String name, String lastName, Date birthDate, String email, String password) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Object> alumno = new HashMap<>();
-        alumno.put("nombre", name);
-        alumno.put("apellido", lastName);
-        alumno.put("fec_nacimiento", new Timestamp(birthDate));
-        alumno.put("email", email);
-        alumno.put("password", password);
+        // Crear usuario en Firebase Authentication
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Si el registro es exitoso, guardar datos adicionales en Firestore
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            Map<String, Object> alumno = new HashMap<>();
+                            alumno.put("nombre", name);
+                            alumno.put("apellido", lastName);
+                            alumno.put("fec_nacimiento", new Timestamp(birthDate));
+                            alumno.put("email", email);
 
-        db.collection("alumno").
-                add(alumno)
-                .addOnSuccessListener(documentReference -> handleSuccess())
-                .addOnFailureListener(e -> handleFailure());
+                            // Guardar información adicional en Firestore
+                            db.collection("alumno").document(user.getUid()) // Usar el UID del usuario
+                                    .set(alumno)
+                                    .addOnSuccessListener(documentReference -> handleSuccess())
+                                    .addOnFailureListener(e -> handleFailure());
+                        }
+                    } else {
+                        // Manejar errores en la creación del usuario
+                        handleFailure();
+                    }
+                });
     }
 
     private void handleFailure() {

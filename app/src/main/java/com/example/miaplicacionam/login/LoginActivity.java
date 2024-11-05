@@ -42,16 +42,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.mAuth = FirebaseAuth.getInstance();
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_login);
+        setContentView(binding.getRoot()); // Cambiar esto para usar binding
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = this.findViewById(R.id.username);
-        final EditText passwordEditText =  this.findViewById(R.id.password);
-        final Button loginButton =  this.findViewById(R.id.login);
-        final ProgressBar loadingProgressBar =  this.findViewById(R.id.loading);
-        final TextView loginErrorMessage = this.findViewById(R.id.loginErrorMessageText);
+        // Usando binding para acceder a las vistas
+        final EditText usernameEditText = binding.username;
+        final EditText passwordEditText = binding.password;
+        final Button loginButton = binding.login;
+        final ProgressBar loadingProgressBar = binding.loading;
+        final TextView loginErrorMessage = binding.loginErrorMessageText;
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
