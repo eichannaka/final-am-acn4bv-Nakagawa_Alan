@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (mAuth.getCurrentUser() != null) {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main_proyect);
             WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 this.mAuth.signOut();
                 this.recreate();
             });
-            LinearLayout alumnosCard = this.findViewById(R.id.CardAlumnos);
-            alumnosCard.setOnClickListener(this::goToAlumnosView);
-            LinearLayout docentesCard = this.findViewById(R.id.CardPersonalDocente);
-            docentesCard.setOnClickListener(this::goToDocentesView);
-            LinearLayout cursosCard = this.findViewById(R.id.CardCursos);
-            cursosCard.setOnClickListener(this::goToCursosView);
+            LinearLayout tareasCard = this.findViewById(R.id.CardTareas);
+            tareasCard.setOnClickListener(this::goToTareasView);
+            LinearLayout proyectosCard = this.findViewById(R.id.CardProyectos);
+            proyectosCard.setOnClickListener(this::goToProyectosView);
+            LinearLayout colaboradoresCard = this.findViewById(R.id.CardColaboradores);
+            colaboradoresCard.setOnClickListener(this::goToColaboradoresCardView);
         } else {
             setContentView(R.layout.activity_main_no_user);
             WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -70,18 +70,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void goToAlumnosView(View view) {
-        Intent nextView = new Intent(this, AlumnosActivity.class);
+    private void goToTareasView(View view) {
+        Intent nextView = new Intent(this, TareasActivity.class);
         startActivity(nextView);
     }
 
-    private void goToDocentesView(View view) {
-        Intent nextView = new Intent(this, DocentesActivity.class);
+    private void goToProyectosView(View view) {
+        Intent nextView = new Intent(this, ProyectosActivity.class);
         startActivity(nextView);
     }
 
-    private void goToCursosView(View view) {
-        Intent nextView = new Intent(this, CursosActivity.class);
+    private void goToColaboradoresCardView(View view) {
+        Intent nextView = new Intent(this, ColaboradoresActivity.class);
         startActivity(nextView);
     }
 }

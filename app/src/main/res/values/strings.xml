@@ -58,4 +58,28 @@
     <string name="register_btn">Enviar</string>
     <string name="prompt_confirm_password">Confirmar Password *</string>
     <string name="register_back_to_main_btn_text">Cancelar</string>
+
+    <string name="tareas_nav_title">Tareas</string>
+    <string name="tareas_card_image_description">Imagen Tareas</string>
+    <string name="tareas_card_text_label">Tareas</string>
+
+    <string name="proyectos_card_image_description">Imagen Proyectos</string>
+    <string name="proyectos_card_text_label">Proyectos</string>
+
+    <string name="colaboradores_card_image_description">Imagen Colaboradores</string>
+    <string name="colaboradores_card_text_label">Colaboradores</string>
+    <string name="tareas_loading_text">Cargando tareas…</string>
+    <string name="tareas_load_fail_error_msg">Ha ocurrido un error al cargar la información</string>
+    <string name="tareas_activity_no_results">No se encontrado ningún resultado</string>
+    <string name="tareas_activity_buscando_msg">Buscando tareas....</string>
+    <string name="tareasQueryHint">Buscar tarea…</string>
+    <string name="add_task_nav_title">Agregar Tarea</string>
+
+        <string-array name="estados_tarea">
+            <item>Pendiente</item>
+            <item>Completada</item>
+            <item>En Progreso</item>
+            <!-- Otros estados que desees agregar -->
+        </string-array>
+
 </resources>

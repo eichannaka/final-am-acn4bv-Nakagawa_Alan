@@ -17,4 +17,19 @@
     <dimen name="alumno_row_margin_bottom">30dp</dimen>
     <dimen name="border_width">5dp</dimen>
 
+
+    <dimen name="tarea_image_width">75dp</dimen>
+    <dimen name="tarea_image_height">75dp</dimen>
+    <!-- Margenes de imagen de tareas -->
+    <dimen name="tarea_image_margin_start">50dp</dimen>
+    <dimen name="tarea_image_margin_top">0dp</dimen>
+    <dimen name="tarea_image_margin_end">50dp</dimen>
+    <dimen name="tarea_image_margin_bottom">0dp</dimen>
+    <!-- Margenes de fila de alumno -->
+    <dimen name="tarea_row_margin_start">0dp</dimen>
+    <dimen name="tarea_row_margin_top">0dp</dimen>
+    <dimen name="tarea_row_margin_end">0dp</dimen>
+    <dimen name="tarea_row_margin_bottom">30dp</dimen>
+
+
 </resources>

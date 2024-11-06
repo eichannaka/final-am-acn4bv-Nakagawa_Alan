@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TareasActivity">
+
+    <!-- Main Linear Layout -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Barra de Navegación -->
+        <LinearLayout
+            android:id="@+id/MainNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/nav_color"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <!-- Titulo de la actividad -->
+            <TextView
+                android:id="@+id/TareasNavLogo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/tareas_nav_title" />
+        </LinearLayout>
+
+        <!-- Barra de Busqueda -->
+
+        <!-- Contenedor de los estados -->
+        <SearchView
+            android:id="@+id/searchTareas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#E1E1E1"
+            android:queryHint="@string/tareasQueryHint" />
+
+        <LinearLayout
+            android:id="@+id/statusContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Texto de estado -->
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:text="@string/tareas_loading_text"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <!-- Barra de progreso -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:indeterminateTint="@color/progress_color"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp" />
+        </LinearLayout>
+
+        <!-- Scroll View del contenido principal -->
+        <ScrollView
+            android:id="@+id/MainContentScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/MainContentScrollLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp">
+
+                <!-- Aquí se agregarán las tareas dinámicamente -->
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!-- Botón flotante para agregar una tarea -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:src="@drawable/baseline_add_24"
+        app:backgroundTint="@color/progress_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

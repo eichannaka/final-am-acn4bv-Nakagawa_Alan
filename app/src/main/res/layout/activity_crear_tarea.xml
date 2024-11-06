@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrearTareaActivity">
+
+    <LinearLayout
+        android:id="@+id/MainNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/nav_color"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/SchoolNavLogo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:tint="@color/white"
+            android:text="@string/add_task_nav_title" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etTituloTarea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Título de la Tarea"
+        android:theme="@style/EditTextTheme"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MainNav"/>
+
+    <EditText
+        android:id="@+id/etDescripcionTarea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Descripción de la Tarea"
+        android:theme="@style/EditTextTheme"
+        android:layout_margin="16dp"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etTituloTarea"/>
+
+    <EditText
+        android:id="@+id/etFechaCreacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fecha de Creación"
+        android:focusable="false"
+        android:theme="@style/EditTextTheme"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDescripcionTarea"/>
+
+    <EditText
+        android:id="@+id/etFechaVencimiento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fecha de Vencimiento"
+        android:focusable="false"
+        android:theme="@style/EditTextTheme"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etFechaCreacion"/>
+
+    <Spinner
+        android:id="@+id/spinnerEstado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etFechaVencimiento"/>
+
+    <Button
+        android:id="@+id/btnGuardarTarea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginBottom="64dp"
+        android:enabled="true"
+        android:padding="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Guardar Tarea"
+        android:background="@drawable/button_default"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/spinnerEstado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
