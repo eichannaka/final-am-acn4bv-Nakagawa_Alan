@@ -79,7 +79,6 @@
             <item>Pendiente</item>
             <item>Completada</item>
             <item>En Progreso</item>
-            <!-- Otros estados que desees agregar -->
         </string-array>
 
 </resources>

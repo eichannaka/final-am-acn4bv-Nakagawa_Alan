@@ -111,7 +111,7 @@ public class CrearTareaActivity extends AppCompatActivity {
             Timestamp fechaCreacion = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaCreacionString));
             Timestamp fechaVencimiento = new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(fechaVencimientoString));
 
-            // Crear un objeto tarea
+            // Crear un objeto tarea (sin ID)
             Tarea nuevaTarea = new Tarea(null, titulo, descripcion, fechaCreacion, fechaVencimiento, estado);
 
             // Subir la tarea a Firestore
@@ -121,7 +121,14 @@ public class CrearTareaActivity extends AppCompatActivity {
             // Agregar el objeto tarea a la colección "tareas"
             tareasRef.add(nuevaTarea)
                     .addOnSuccessListener(documentReference -> {
+                        // Asignar el ID generado por Firestore al objeto tarea
+                        nuevaTarea.setId(documentReference.getId());
+
+                        // Guardar el ID en Firestore si es necesario
+                        tareasRef.document(documentReference.getId()).set(nuevaTarea);
+
                         Toast.makeText(this, "Tarea guardada correctamente en Firestore.", Toast.LENGTH_SHORT).show();
+
                         // Limpiar los campos después de guardar la tarea
                         etTituloTarea.setText("");
                         etDescripcionTarea.setText("");
@@ -136,6 +143,7 @@ public class CrearTareaActivity extends AppCompatActivity {
             Toast.makeText(this, "Error al parsear las fechas. Verifique el formato.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 }

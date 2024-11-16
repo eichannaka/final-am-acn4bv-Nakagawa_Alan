@@ -38,7 +38,6 @@
             android:name=".CrearTareaActivity"
             android:exported="false" />
 
-
         <activity
             android:name=".login.LoginActivity"
             android:exported="false"

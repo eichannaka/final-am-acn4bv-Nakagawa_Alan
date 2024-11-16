@@ -1,36 +1,49 @@
+// TareasActivity.java
 package com.example.miaplicacionam;
 
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
-
-import androidx.core.view.WindowCompat;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.miaplicacionam.R;
 import com.example.miaplicacionam.model.Tarea;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class TareasActivity extends AppCompatActivity {
@@ -49,9 +62,9 @@ public class TareasActivity extends AppCompatActivity {
         // CONFIGURACION SEARCHBAR DE TAREAS
         SearchView searchView = this.findViewById(R.id.searchTareas);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
+           /* @Override
             public boolean onQueryTextSubmit(String query) {
-                TareasActivity.this.findViewById(R.id.searchTareas).clearFocus();
+               /// TareasActivity.this.findViewById(R.id.searchTareas).clearFocus();
                 if (query.isEmpty()) {
                     cargarTareas(FirebaseFirestore.getInstance());
                 } else {
@@ -70,7 +83,23 @@ public class TareasActivity extends AppCompatActivity {
                     cargarTareas(FirebaseFirestore.getInstance());
                 }
                 return true;
+            }*/
+           @Override
+           public boolean onQueryTextSubmit(String query) {
+               if (!query.isEmpty()) {
+                   buscarTareasPorTitulo(FirebaseFirestore.getInstance(), query);
+               }
+               return true;
+           }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    cargarTareas(FirebaseFirestore.getInstance()); // Carga todas las tareas cuando la barra está vacía
+                }
+                return true;
             }
+
         });
 
         // Configurar el FloatingActionButton
@@ -107,21 +136,65 @@ public class TareasActivity extends AppCompatActivity {
         Map<String, Object> campos = document.getData();
         String titulo = String.valueOf(campos.get("titulo"));
         String descripcion = String.valueOf(campos.get("descripcion"));
-        Timestamp fechaCreacion = (Timestamp) campos.get("fecha_creacion");
-        Timestamp fechaVencimiento = (Timestamp) campos.get("fecha_vencimiento");
+        Timestamp fechaCreacion = (Timestamp) campos.get("fechaCreacion");
+        Timestamp fechaVencimiento = (Timestamp) campos.get("fechaVencimiento");
         String estado = String.valueOf(campos.get("estado"));
 
         return new Tarea(document.getId(), titulo, descripcion, fechaCreacion, fechaVencimiento, estado);
     }
 
-    // Método para cargar tareas
-    private void cargarTareas(@NonNull FirebaseFirestore db) {
+    //Formatear fechas
+    private String formatearFecha(Timestamp timestamp) {
+        if (timestamp != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date fecha = timestamp.toDate();
+            return sdf.format(fecha);
+        }
+        return "";
+    }
+    // Método para cargar tarea
+     /*  private void cargarTareas(@NonNull FirebaseFirestore db) {
         mostrarEstadoDeCarga(true, getString(R.string.tareas_loading_text));
         LinearLayout tareasContainer = findViewById(R.id.MainContentScrollLinearLayout);
         tareasContainer.removeAllViews();
 
         db.collection("tareas")
-                .orderBy("fecha_creacion")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        int resultados = 0;
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if (document.exists()) {  // Asegúrate de que el documento existe
+                                try {
+                                    Tarea nuevaTarea = crearTareaDesdeDocumento(document);
+                                    crearFilaTarea(nuevaTarea);
+                                    resultados++;
+                                    Log.d(TAG, "Tarea cargada: " + nuevaTarea.getTitulo());
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Error al procesar el documento: " + document.getId(), e);
+                                }
+                            }
+                        }
+                        manejarResultados(resultados);
+                    } else {
+                        Log.e(TAG, "No se encontraron documentos en la colección 'tareas'.");
+                        manejarResultados(0);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error al cargar tareas: ", e);
+                    mostrarMensajeDeError();
+                });
+    }
+    */
+
+    // Método para cargar tarea
+    private void cargarTareas(@NonNull FirebaseFirestore db) {
+        mostrarEstadoDeCarga(true, getString(R.string.tareas_loading_text));
+        LinearLayout tareasContainer = findViewById(R.id.MainContentScrollLinearLayout);
+        tareasContainer.removeAllViews();
+        db.collection("tareas")
+                .orderBy("fechaCreacion")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -131,6 +204,7 @@ public class TareasActivity extends AppCompatActivity {
                                 resultados++;
                                 Tarea nuevaTarea = crearTareaDesdeDocumento(document);
                                 crearFilaTarea(nuevaTarea);
+                                Log.d(TAG, "Tarea cargada: " + nuevaTarea.getTitulo());  // Log de depuración
                             } catch (ClassCastException e) {
                                 Log.d(TAG, "Error al castear o obtener data de: " + document.getId());
                             }
@@ -140,37 +214,56 @@ public class TareasActivity extends AppCompatActivity {
                         mostrarMensajeDeError();
                     }
                 })
-                .addOnFailureListener(e -> mostrarMensajeDeError());
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "Error al cargar tareas: " + e.getMessage());  // Log de error
+                    mostrarMensajeDeError();
+                });
+    }
+
+    // Método para agregar tarea a la vista
+    private void agregarTarea(String titulo, String descripcion, String fechaCreacion, String fechaVencimiento, String estado) {
+        LinearLayout tareasContainer = findViewById(R.id.MainContentScrollLinearLayout);
+
+        // Vista personalizada para mostrar cada tarea
+        TextView tareaView = new TextView(this);
+        tareaView.setText(String.format("Título: %s\nDescripción: %s\nFecha de Creación: %s\nFecha de Vencimiento: %s\nEstado: %s", titulo, descripcion, fechaCreacion, fechaVencimiento, estado));
+        tareaView.setPadding(16, 16, 16, 16);
+        tareaView.setTextSize(18);
+
+        tareasContainer.addView(tareaView);
     }
 
     // Método para buscar tareas
-    private void buscarTareas(@NonNull FirebaseFirestore db, String busqueda) {
-        mostrarEstadoDeCarga(true, getString(R.string.tareas_activity_buscando_msg));
-
-        db.collection("tarea")
-                .orderBy("titulo")
+    // Método para buscar tareas por título
+    private void buscarTareasPorTitulo(FirebaseFirestore db, String titulo) {
+        db.collection("tareas")
+                .whereEqualTo("titulo", titulo) // Solo busca tareas con el título exacto
                 .get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        int resultados = 0;
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            try {
-                                Map<String, Object> campos = document.getData();
-                                String titulo = String.valueOf(campos.get("titulo"));
-                                if (!titulo.toLowerCase().contains(busqueda.toLowerCase())) continue;
-                                resultados++;
-                                Tarea nuevaTarea = crearTareaDesdeDocumento(document);
-                                crearFilaTarea(nuevaTarea);
-                            } catch (ClassCastException e) {
-                                Log.d(TAG, "Error al castear o obtener data de: " + document.getId());
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        LinearLayout tareasContainer = findViewById(R.id.MainContentScrollLinearLayout);
+                        tareasContainer.removeAllViews(); // Limpia las tareas existentes
+
+                        if (task.getResult().isEmpty()) {
+                            // Si no hay resultados, muestra un mensaje opcional
+                            TextView noResults = new TextView(this);
+                            noResults.setText("No se encontraron tareas con ese título.");
+                            noResults.setPadding(16, 16, 16, 16);
+                            tareasContainer.addView(noResults);
+                        } else {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                String descripcion = document.getString("descripcion");
+                                String fechaCreacion = formatearFecha(document.getTimestamp("fechaCreacion"));
+                                String fechaVencimiento = formatearFecha(document.getTimestamp("fechaVencimiento"));
+                                String estado = document.getString("estado");
+                                // Agrega las tareas filtradas al contenedor
+                                agregarTarea(titulo, descripcion, fechaCreacion, fechaVencimiento, estado);
                             }
                         }
-                        manejarResultados(resultados);
                     } else {
-                        mostrarMensajeDeError();
+                        Log.e("buscarTareasPorTitulo", "Error al buscar tareas: ", task.getException());
                     }
-                })
-                .addOnFailureListener(e -> mostrarMensajeDeError());
+                });
     }
 
     // Método para manejar la lógica de resultados
@@ -187,43 +280,58 @@ public class TareasActivity extends AppCompatActivity {
     // Método para mostrar mensaje de error
     private void mostrarMensajeDeError() {
         mostrarEstadoDeCarga(true, getString(R.string.tareas_load_fail_error_msg));
+        ProgressBar statusProgressBar = findViewById(R.id.progressBar);
+        statusProgressBar.setVisibility(View.GONE);
     }
 
     // Método para crear la fila de cada tarea
     private void crearFilaTarea(@NonNull Tarea tarea) {
         // Creación del contenedor principal
         LinearLayout tareaRow = new LinearLayout(this);
-        tareaRow.setOrientation(LinearLayout.HORIZONTAL);
+        tareaRow.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams tareaRowParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tareaRowParams.setMargins(
-                getResources().getDimensionPixelSize(R.dimen.tarea_row_margin_start),
-                getResources().getDimensionPixelSize(R.dimen.tarea_row_margin_top),
-                getResources().getDimensionPixelSize(R.dimen.tarea_row_margin_end),
-                getResources().getDimensionPixelSize(R.dimen.tarea_row_margin_bottom));
         tareaRow.setLayoutParams(tareaRowParams);
 
         // TextView para el título de la tarea
         TextView tareaTitulo = new TextView(this);
         tareaTitulo.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        tareaTitulo.setText(tarea.getTitulo());
+        tareaTitulo.setText("Título: " + tarea.getTitulo()); // Agregar el título
 
         // TextView para la descripción de la tarea
         TextView tareaDescripcion = new TextView(this);
         tareaDescripcion.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        tareaDescripcion.setText(tarea.getDescripcion());
+        tareaDescripcion.setText("Descripción: " + tarea.getDescripcion()); // Agregar la descripción
 
-        // Agregar vistas al contenedor principal
-        LinearLayout tareaDataLayout = new LinearLayout(this);
-        tareaDataLayout.setOrientation(LinearLayout.VERTICAL);
-        tareaDataLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        tareaDataLayout.addView(tareaTitulo);
-        tareaDataLayout.addView(tareaDescripcion);
+        // TextView para la fecha de creación
+        TextView tareaFechaCreacion = new TextView(this);
+        tareaFechaCreacion.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        tareaFechaCreacion.setText("Fecha de Creación: " + formatearFecha(tarea.getFechaCreacion()));
 
-        tareaRow.addView(tareaDataLayout);
+        // TextView para la fecha de vencimiento
+        TextView tareaFechaVencimiento = new TextView(this);
+        tareaFechaVencimiento.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        tareaFechaVencimiento.setText("Fecha de Vencimiento: " + formatearFecha(tarea.getFechaVencimiento()));
 
-        // Agregar fila al contenedor
+        // Spinner para el estado de la tarea
+        Spinner spinnerEstado = new Spinner(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.estados_tarea, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerEstado.setAdapter(adapter);
+        int estadoIndex = adapter.getPosition(tarea.getEstado());
+        spinnerEstado.setSelection(estadoIndex); // Seleccionar el estado correcto
+
+        // Agregar las vistas al contenedor de la tarea
+        tareaRow.addView(tareaTitulo);
+        tareaRow.addView(tareaDescripcion);
+        tareaRow.addView(tareaFechaCreacion);
+        tareaRow.addView(tareaFechaVencimiento);
+        tareaRow.addView(spinnerEstado);
+
+        // Agregar la fila al contenedor principal
         LinearLayout tareasContainer = findViewById(R.id.MainContentScrollLinearLayout);
         tareasContainer.addView(tareaRow);
     }
+
 }

@@ -44,6 +44,10 @@
             android:id="@+id/searchTareas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
             android:layout_marginBottom="10dp"
             android:background="#E1E1E1"
             android:queryHint="@string/tareasQueryHint" />
@@ -87,11 +91,12 @@
                 android:layout_marginBottom="30dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:paddingRight="5dp">
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                android:layout_margin="15dp">
 
-                <!-- Aquí se agregarán las tareas dinámicamente -->
             </LinearLayout>
 
         </ScrollView>
