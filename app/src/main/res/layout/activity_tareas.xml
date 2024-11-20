@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="38dp">
 
         <!-- Barra de Navegación -->
         <LinearLayout
@@ -23,33 +25,46 @@
             android:layout_height="wrap_content"
             android:background="@color/nav_color"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="5dp">
 
+            <!-- Botón para regresar -->
+
             <!-- Titulo de la actividad -->
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/back_button_description"
+                android:scaleType="fitCenter"
+                android:src="@drawable/retroceder" />
+
             <TextView
+
                 android:id="@+id/TareasNavLogo"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:textSize="25sp"
-                android:textColor="@color/white"
                 android:gravity="center"
-                android:text="@string/tareas_nav_title" />
+                android:text="@string/tareas_nav_title"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                />
         </LinearLayout>
 
         <!-- Barra de Busqueda -->
-
-        <!-- Contenedor de los estados -->
         <SearchView
             android:id="@+id/searchTareas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:clickable="true"
             android:layout_marginBottom="10dp"
             android:background="#E1E1E1"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:iconifiedByDefault="false"
             android:queryHint="@string/tareasQueryHint" />
 
         <LinearLayout
@@ -73,8 +88,8 @@
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
-                android:indeterminateTint="@color/progress_color"
                 android:layout_height="wrap_content"
+                android:indeterminateTint="@color/progress_color"
                 android:paddingTop="15dp" />
         </LinearLayout>
 
@@ -88,22 +103,20 @@
                 android:id="@+id/MainContentScrollLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:layout_marginBottom="30dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp"
                 android:paddingRight="15dp"
-                android:paddingBottom="15dp"
-                android:layout_margin="15dp">
-
+                android:paddingBottom="15dp">
             </LinearLayout>
 
         </ScrollView>
 
     </LinearLayout>
 
-    <!-- Botón flotante para agregar una tarea -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

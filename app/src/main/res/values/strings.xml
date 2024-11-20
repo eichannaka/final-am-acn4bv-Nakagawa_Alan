@@ -62,7 +62,7 @@
     <string name="tareas_nav_title">Tareas</string>
     <string name="tareas_card_image_description">Imagen Tareas</string>
     <string name="tareas_card_text_label">Tareas</string>
-
+    <string name="proyectos_nav_title">Proyectos</string>
     <string name="proyectos_card_image_description">Imagen Proyectos</string>
     <string name="proyectos_card_text_label">Proyectos</string>
 
@@ -75,7 +75,8 @@
     <string name="tareasQueryHint">Buscar tarea…</string>
     <string name="add_task_nav_title">Agregar Tarea</string>
 
-        <string-array name="estados_tarea">
+    <string name="back_button_description">Volver</string>
+        <string-array name="estados_tarea">s
             <item>Pendiente</item>
             <item>Completada</item>
             <item>En Progreso</item>

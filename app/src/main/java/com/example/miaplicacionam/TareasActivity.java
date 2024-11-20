@@ -3,12 +3,14 @@ package com.example.miaplicacionam;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,6 +29,7 @@ import com.example.miaplicacionam.R;
 import com.example.miaplicacionam.model.Tarea;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +61,24 @@ public class TareasActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            // El usuario ya está autenticado, puedes redirigirlo a la vista principal
+            Intent intent = new Intent(TareasActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();  // Termina esta actividad para evitar que el usuario vuelva a esta pantalla.
+        }
+        findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent para volver a la actividad principal
+                Intent intent = new Intent(TareasActivity.this, MainActivity.class); // Asegúrate de que "MainActivity" sea el nombre correcto de la actividad
+                startActivity(intent);
+            }
+        });
+
+
 
         // CONFIGURACION SEARCHBAR DE TAREAS
         SearchView searchView = this.findViewById(R.id.searchTareas);
@@ -152,6 +173,8 @@ public class TareasActivity extends AppCompatActivity {
         }
         return "";
     }
+
+
     // Método para cargar tarea
      /*  private void cargarTareas(@NonNull FirebaseFirestore db) {
         mostrarEstadoDeCarga(true, getString(R.string.tareas_loading_text));
@@ -283,6 +306,8 @@ public class TareasActivity extends AppCompatActivity {
         ProgressBar statusProgressBar = findViewById(R.id.progressBar);
         statusProgressBar.setVisibility(View.GONE);
     }
+
+
 
     // Método para crear la fila de cada tarea
     private void crearFilaTarea(@NonNull Tarea tarea) {
