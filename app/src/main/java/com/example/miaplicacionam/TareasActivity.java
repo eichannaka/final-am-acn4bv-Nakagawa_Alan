@@ -62,13 +62,7 @@ public class TareasActivity extends AppCompatActivity {
             return insets;
         });
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
-            // El usuario ya está autenticado, puedes redirigirlo a la vista principal
-            Intent intent = new Intent(TareasActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();  // Termina esta actividad para evitar que el usuario vuelva a esta pantalla.
-        }
+
         findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

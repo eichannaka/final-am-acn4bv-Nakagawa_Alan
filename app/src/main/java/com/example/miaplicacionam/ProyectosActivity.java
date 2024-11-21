@@ -1,6 +1,7 @@
 package com.example.miaplicacionam;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,9 +47,17 @@ public class ProyectosActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        findViewById(R.id.btnBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent para volver a la actividad principal
+                Intent intent = new Intent(ProyectosActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         cargarProyectos();
     }
+
 
     private void cargarProyectos() {
         proyectosContainer.removeAllViews();

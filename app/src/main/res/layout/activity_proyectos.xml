@@ -22,18 +22,29 @@
             android:layout_height="wrap_content"
             android:background="@color/nav_color"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="5dp">
 
             <!-- Titulo de la actividad -->
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/back_button_description"
+                android:scaleType="fitCenter"
+                android:src="@drawable/retroceder" />
+
             <TextView
                 android:id="@+id/TareasNavLogo"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:textSize="25sp"
-                android:textColor="@color/white"
                 android:gravity="center"
-                android:text="@string/proyectos_nav_title" />
+                android:text="@string/proyectos_nav_title"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
         </LinearLayout>
 
 

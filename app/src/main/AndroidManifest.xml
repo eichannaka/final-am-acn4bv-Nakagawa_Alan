@@ -42,7 +42,9 @@
             android:name=".ProyectosActivity"
             android:exported="false" />
 
-
+        <activity
+            android:name=".ColaboradoresActivity"
+            android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
             android:exported="false"

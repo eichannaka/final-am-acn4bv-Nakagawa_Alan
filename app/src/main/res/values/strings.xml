@@ -1,17 +1,7 @@
 <resources>
-    <string name="app_name">SGE-LUJU</string>
-    <string name="cursos_card_text_label">Cursos</string>
-    <string name="personal_docente_card_text_label">Personal Docente</string>
-    <string name="alumnos_card_text_label">Alumnos</string>
-    <string name="alumnos_card_image_description">Imagen de alumnos</string>
-    <string name="cursos_card_image_description">Imagen de cursos</string>
-    <string name="personal_docente_card_image_description">Imagen de personal docente</string>
+    <string name="app_name">TaskHive</string>
+    <string name="logo_desc">Imagen logo</string>
     <string name="nav_logo_description">Logo de la institución educativa</string>
-    <string name="alumno_test_name">John Doe</string>
-    <string name="alumno_test_curso">Curso: Lorem Ipsum</string>
-    <string name="alumno_test_age">Edad: 50</string>
-    <string name="alumnodepruebaBtn_text">Crear alumno de prueba</string>
-    <string name="edad_alumno">Edad: %1$d</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email *</string>
     <string name="prompt_password">Contraseña *</string>
@@ -24,32 +14,13 @@
     <string name="log_out_svc_icon_img_description">Log out SVC icon</string>
     <string name="title_activity_main_no_user">MainActivityNoUser</string>
     <string name="main_no_user_log_in_btn_text">Iniciar sesión</string>
-    <string name="welcome_msg">¡Bienvenido a LUJU!</string>
+    <string name="welcome_msg">¡Bienvenido a TaskHive!</string>
     <string name="example_error_login_message">Error message</string>
     <string name="main_login_failed_message">Lo sentimos, el usuario o contraseña es incorrecto o no se encuentra registrado</string>
-    <string name="alumnos_loading_text">Cargando alumnos…</string>
-    <string name="alumnos_load_fail_error_msg">Ha ocurrido un error al cargar la información, intente de nuevo en unos minutos. En caso de continuar fallando, contacta con un administrador</string>
-    <string name="alumnos_activity_no_results">No se encontrado ningún resultado</string>
-    <string name="alumnos_activity_buscando_msg">Buscando Alumnos…</string>
-    <string name="loading_personal_docente_msg">Cargando personal…</string>
+
     <string name="log_in_nav_title">Iniciar Sesión</string>
-    <string name="alumnos_nav_title">Alumnos</string>
-    <string name="add_alumno_nav_title">Agregar Alumno</string>
-    <string name="docentes_nav_title">Docentes</string>
-    <string name="cursos_nav_title">Cursos</string>
-    <string name="loading_cursos_msg">Cargando cursos…</string>
-    <string name="searching_cursos_msg">Buscando cursos…</string>
-    <string name="studentQueryHint">Buscar alumno…</string>
-    <string name="loadingStudentData">Cargando Datos del Alumno</string>
-    <string name="loading_student_data">Cargando datos del alumno…</string>
-    <string name="add_student">Crear estudiante</string>
-    <string name="apellido">Apellido *</string>
-    <string name="curso">Curso *</string>
-    <string name="guardar">Guardar</string>
-    <string name="nombre">Nombre *</string>
+
     <string name="fecha_nacimiento">Fecha de Nacimiento *</string>
-    <string name="cargar_imagen">Cargar Imagen</string>
-    <string name="add_alumno_url_imagen_hint">URL de imagen (opcional)</string>
     <string name="main_no_user_register_btn_text">Registrarse</string>
     <string name="register_nav_title">Registro</string>
     <string name="prompt_name">Nombre *</string>
@@ -66,6 +37,7 @@
     <string name="proyectos_card_image_description">Imagen Proyectos</string>
     <string name="proyectos_card_text_label">Proyectos</string>
 
+    <string name="colaboradores_nav_title">Colaboradores</string>
     <string name="colaboradores_card_image_description">Imagen Colaboradores</string>
     <string name="colaboradores_card_text_label">Colaboradores</string>
     <string name="tareas_loading_text">Cargando tareas…</string>
@@ -76,7 +48,7 @@
     <string name="add_task_nav_title">Agregar Tarea</string>
 
     <string name="back_button_description">Volver</string>
-        <string-array name="estados_tarea">s
+        <string-array name="estados_tarea">
             <item>Pendiente</item>
             <item>Completada</item>
             <item>En Progreso</item>

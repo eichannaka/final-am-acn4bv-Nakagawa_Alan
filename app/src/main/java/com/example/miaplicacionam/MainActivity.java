@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mAuth = FirebaseAuth.getInstance();
-        this.mAuth.signOut();
     }
 
     @Override

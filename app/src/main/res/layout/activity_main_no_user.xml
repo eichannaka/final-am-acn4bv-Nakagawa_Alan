@@ -9,6 +9,7 @@
     android:background="@drawable/login_background"
     tools:context=".MainActivity">
 
+    <!-- Texto de bienvenida -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,9 +17,21 @@
         android:text="@string/welcome_msg"
         android:textColor="@color/white"
         android:textSize="37sp"
-        app:layout_constraintBottom_toTopOf="@+id/mainLogInBtn"
+        app:layout_constraintBottom_toTopOf="@+id/logoImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:contentDescription="@string/logo_desc"
+        app:layout_constraintBottom_toTopOf="@+id/mainLogInBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+         />
 
     <!-- Botón de inicio de sesión -->
     <Button
